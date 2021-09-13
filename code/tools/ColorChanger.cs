@@ -2,7 +2,7 @@
 
 namespace Sandbox.Tools
 {
-	[Library( "tool_colorchanger", Title = "Color Changer", Description = "Change color of objects using Mouse 1 or 2", Group = "construction" )]
+	[Library( "tool_colorchanger", Title = "Color Changer", Description = "Change color of objects using Mouse 1 or 2", Group = "render" )]
 	public partial class ColorChanger : BaseTool
 	{
 
@@ -40,8 +40,6 @@ namespace Sandbox.Tools
 					{
 						colorIndex = 0;
 					}
-
-					//Log.Info( "colorIndex went up: " + colorIndex );
 				}
 				else if ( Input.Pressed( InputButton.Attack2 ) )
 				{
@@ -51,8 +49,6 @@ namespace Sandbox.Tools
 					{
 						colorIndex = colors.Length - 1;
 					}
-
-					//Log.Info( "colorIndex went down: " + colorIndex );
 				}
 				else return;
 
@@ -70,16 +66,7 @@ namespace Sandbox.Tools
 
 				try
 				{
-					modelEnt.RenderColorAndAlpha = getColor( colorIndex );
-					
-					if (colorIndex == 8)
-					{
-						modelEnt.RenderAlpha = 0;
-					}
-					else
-					{
-						modelEnt.RenderAlpha = 100;
-					}
+					modelEnt.RenderColor = colors[colorIndex];
 				}
 				catch ( IndexOutOfRangeException ex )
 				{
@@ -89,11 +76,6 @@ namespace Sandbox.Tools
 
 				CreateHitEffects( tr.EndPos ); 
 			}
-		}
-
-		private Color getColor(int index)
-		{
-			return colors[index];
 		}
 	}
 }

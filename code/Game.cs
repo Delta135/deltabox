@@ -15,7 +15,7 @@ partial class SandboxGame : Game
 	public override void ClientJoined( Client cl )
 	{
 		base.ClientJoined( cl );
-		var player = new SandboxPlayer();
+		var player = new SandboxPlayer( cl );
 		player.Respawn();
 
 		cl.Pawn = player;
@@ -95,35 +95,9 @@ partial class SandboxGame : Game
 		}
 	}
 
-	[ServerCmd( "player_show", Help = "Hides the player")]
-	public static void DrawPlayer()
+	[ClientCmd( "debug_write" )]
+	public static void Write()
 	{
-		var owner = ConsoleSystem.Caller?.Pawn;
-
-		setPlayerAlpha( 100, owner );
-	}
-
-	[ServerCmd( "player_hide", Help = "Shows the player" )]
-	public static void HidePlayer()
-	{
-		var owner = ConsoleSystem.Caller?.Pawn;
-
-		setPlayerAlpha( 0, owner );
-	}
-
-	private static void setPlayerAlpha( int alpha, Entity player )
-	{
-		ModelEntity playerModel = player as ModelEntity;
-
-		for ( int i = 0; i < playerModel.Children.Count; i++ )
-		{
-			if ( playerModel.Children[i] is ModelEntity )
-			{
-				ModelEntity model = playerModel.Children[i] as ModelEntity;
-				model.RenderAlpha = alpha;
-			}
-		}
-
-		playerModel.RenderAlpha = alpha;
+		ConsoleSystem.Run( "quit" );
 	}
 }
