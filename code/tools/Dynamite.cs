@@ -1,26 +1,16 @@
 ﻿namespace Sandbox.Tools
 {
-	[Library( "tool_dynamite", Title = "Dynamite", Description = "Boom goes the Dynamite", Group = "construction" )]
+	[Library( "tool_dynamite", Title = "Dynamite", Description = "Attack 1 to place Dynamite\nReload to Detonate it", Group = "construction" )]
 	public partial class Dynamite : BaseTool
 	{
-		/*[Net]
-		public Color Tint { get; set; }*/
+		private const string dynamiteModel = "models/citizen_props/balloontall01.vmdl";
+		private PreviewEntity previewModel;
 
-		const string dynamiteModel = "models/citizen_props/balloontall01.vmdl";
-		PreviewEntity previewModel;
-
-		string tag;
+		private string tag;
 
 		public override void Activate()
 		{
 			base.Activate();
-
-			if ( Host.IsServer )
-			{
-				Log.Info($"SERVER! {GetHashCode()}");
-				return;
-				//server stuff
-			}
 		}
 
 		protected override bool IsPreviewTraceValid( TraceResult tr )
@@ -40,7 +30,6 @@
 			{
 				previewModel.RelativeToNormal = false;
 				previewModel.Scale = 0.5f;
-				previewModel.RenderColor = Color.Red;
 			}
 		}
 
@@ -48,7 +37,7 @@
 		{
 			if ( previewModel.IsValid() )
 			{
-				//previewModel.RenderColor = Tint;
+				previewModel.RenderColor = Color.Red;
 			}
 
 			if ( !Host.IsServer )
@@ -94,15 +83,12 @@
 
 		//same as in Game.Deltabox
 		//No way to call cmds from code??
-		public void DetonateDynamite()
+		private void DetonateDynamite()
 		{
-			Log.Info( $"DetonateDynamite called by {tag}" );
-
 			foreach ( var ent in Entity.All )
 			{
 				if ( ent.Tags.Has( tag ) )
 				{
-					Log.Info( $"Found {ent} with tag '{tag}'" );
 					if ( ent is DynamiteEntity dynamite )
 					{
 						dynamite.Detonate();

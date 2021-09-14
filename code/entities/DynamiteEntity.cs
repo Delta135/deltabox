@@ -10,13 +10,11 @@ public partial class DynamiteEntity : Prop
 {
 	public override void Spawn()
 	{
-
+		base.Spawn();
 	}
 
 	public void Detonate()
 	{
-		Log.Info("BOOM!");
-
 		Particles.Create( "particles/explosion.vpcf", Position );
 		Sound.FromEntity( "explode", this);
 
