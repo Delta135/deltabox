@@ -18,7 +18,7 @@ public partial class DynamiteEntity : Prop
 		Log.Info("BOOM!");
 
 		Particles.Create( "particles/explosion.vpcf", Position );
-		Sound.FromWorld( "sounds/common/explosions/explo_gas_can_01.vsnd", Position );
+		Sound.FromEntity( "explode", this);
 
 		this.OnKilled();
 	}
