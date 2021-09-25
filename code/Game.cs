@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 
+//removed on master but still seems to be needed to make a gamemode work(?)
 [Library( "sandbox", Title = "Sandbox" )]
 partial class SandboxGame : Game
 {
