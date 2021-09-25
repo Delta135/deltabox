@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 
-[Library( "deltabox", Title = "Deltabox" )]
 partial class SandboxGame : Game
 {
 	public SandboxGame()
