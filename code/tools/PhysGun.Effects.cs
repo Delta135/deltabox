@@ -56,7 +56,6 @@ public partial class PhysGun
 			return;
 		}
 
-		//var owner = Owner;
 		var owner = Owner as Player;
 
 		if ( owner == null || !BeamActive || owner.ActiveChild != this )

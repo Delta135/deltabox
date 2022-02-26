@@ -18,7 +18,6 @@ public partial class ToolCameraEntity: Prop
 	[Event.Frame]
 	public void OnFrame()
 	{
-		//if ( this.Owner?.Camera is ToolCamera tc)
 		if( this.Owner.Components.Get<CameraMode>() is ToolCamera tc )
 		{
 			//Yes, we do need to set this every frame
@@ -26,7 +25,6 @@ public partial class ToolCameraEntity: Prop
 			tc.Owner = this;
 		}
 
-		//DebugOverlay.Text( this.Position, $"Owner: {this.Owner?.GetClientOwner().Name}", Color.White, 0, 100);
 		DebugOverlay.Text( this.Position, $"Owner: {this.Owner?.Client.Name}", Color.White, 0, 100 );
 	}
 
@@ -68,7 +66,6 @@ public partial class ToolCameraEntity: Prop
 
 	protected override void OnDestroy()
 	{
-		//(this.Owner as SandboxPlayer).MainCamera = new FirstPersonCamera();
 		(this.Owner as SandboxPlayer).CameraMode = new FirstPersonCamera();
 
 		base.OnDestroy();

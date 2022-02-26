@@ -63,15 +63,12 @@ namespace Sandbox.Tools
 
 			if ( Owner is SandboxPlayer player)
 			{
-				//if ( player.MainCamera is ToolCamera )
 				if ( player.Components.Get<CameraMode>() is ToolCamera )
 				{
-					//player.MainCamera = new FirstPersonCamera();
 					player.CameraMode = new FirstPersonCamera();
 				}
 				else
 				{
-					//player.MainCamera = new ToolCamera();
 					player.CameraMode = new ToolCamera();
 				}
 			}
