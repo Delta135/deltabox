@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.UI;
 using System;
 
 [Library( "ent_toolcamera", Title = "Camera", Spawnable = false )]
@@ -6,7 +7,7 @@ public partial class ToolCameraEntity: Prop
 {
 	private readonly string camModel = "models/editor/camera.vmdl";
 
-	public ICamera ViewCamera;
+	//public ICamera ViewCamera;
 
 	public override void Spawn()
 	{
@@ -17,14 +18,16 @@ public partial class ToolCameraEntity: Prop
 	[Event.Frame]
 	public void OnFrame()
 	{
-		if ( this.Owner?.Camera is ToolCamera tc)
+		//if ( this.Owner?.Camera is ToolCamera tc)
+		if( this.Owner.Components.Get<CameraMode>() is ToolCamera tc )
 		{
 			//Yes, we do need to set this every frame
 			//cameras really don't like having their properties set from the outside
 			tc.Owner = this;
 		}
 
-		DebugOverlay.Text( this.Position, $"Owner: {this.Owner?.GetClientOwner().Name}", Color.White, 0, 100);
+		//DebugOverlay.Text( this.Position, $"Owner: {this.Owner?.GetClientOwner().Name}", Color.White, 0, 100);
+		DebugOverlay.Text( this.Position, $"Owner: {this.Owner?.Client.Name}", Color.White, 0, 100 );
 	}
 
 	public void SetPhys(bool enable)
@@ -65,7 +68,8 @@ public partial class ToolCameraEntity: Prop
 
 	protected override void OnDestroy()
 	{
-		(this.Owner as SandboxPlayer).MainCamera = new FirstPersonCamera();
+		//(this.Owner as SandboxPlayer).MainCamera = new FirstPersonCamera();
+		(this.Owner as SandboxPlayer).CameraMode = new FirstPersonCamera();
 
 		base.OnDestroy();
 	}

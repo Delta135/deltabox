@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sandbox
 {
-	public class ToolCamera : Camera
+	public class ToolCamera : CameraMode
 	{
 		public Entity Owner { get; set; }
 		private static bool drawHud { get; set; } = false;
@@ -32,8 +32,11 @@ namespace Sandbox
 				return;
 			}
 
-			Pos = Owner.Position;
-			Rot = Owner.Rotation;
+			//Pos = Owner.Position;
+			//Rot = Owner.Rotation;
+
+			Position = Owner.Position;
+			Rotation = Owner.Rotation;
 
 			//Control player hud when viewing through the camera
 			Local.Hud?.SetClass( "devcamera", drawHud );
@@ -48,7 +51,8 @@ namespace Sandbox
 		[ClientCmd( "cam_setfov", Help = "Set the fov of the camera tool\nUsage: cam_setfov <number>\nExample: cam_setfov 90" )]
 		public static void SetFov( int fov )
 		{
-			ToolCamera cam = (Local.Pawn as SandboxPlayer).MainCamera as ToolCamera;
+			//ToolCamera cam = (Local.Pawn as SandboxPlayer).MainCamera as ToolCamera;
+			ToolCamera cam = (Local.Pawn as SandboxPlayer).Components.Get<CameraMode>() as ToolCamera;
 
 			//FOV does not work at extreme values
 			if ( fov == 0 )

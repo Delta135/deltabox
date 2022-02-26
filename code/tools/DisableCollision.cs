@@ -12,8 +12,8 @@
 			{
 				if ( Input.Pressed( InputButton.Attack1 ) )
 				{
-					var startPos = Owner.EyePos;
-					var dir = Owner.EyeRot.Forward;
+					var startPos = Owner.EyePosition;
+					var dir = Owner.EyeRotation.Forward;
 
 					var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
 						.Ignore( Owner )
@@ -34,14 +34,14 @@
 					if ( tr.Entity is ModelEntity model )
 					{
 						model.CollisionGroup = CollisionGroup.Debris;
-						CreateHitEffects( tr.EndPos );
+						CreateHitEffects( tr.EndPosition );
 					}
 				}
 
 				if ( Input.Pressed( InputButton.Attack2 ) )
 				{
-					var startPos = Owner.EyePos;
-					var dir = Owner.EyeRot.Forward;
+					var startPos = Owner.EyePosition;
+					var dir = Owner.EyeRotation.Forward;
 
 					var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
 						.Ignore( Owner )
@@ -66,7 +66,7 @@
 
 					(tr.Entity as ModelEntity).CollisionGroup = CollisionGroup.Interactive;
 
-					CreateHitEffects( tr.EndPos );
+					CreateHitEffects( tr.EndPosition );
 				}
 			}
 		}

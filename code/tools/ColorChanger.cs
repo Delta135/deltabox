@@ -29,8 +29,8 @@ namespace Sandbox.Tools
 
 			using ( Prediction.Off() )
 			{
-				var startPos = Owner.EyePos;
-				var dir = Owner.EyeRot.Forward;
+				var startPos = Owner.EyePosition;
+				var dir = Owner.EyeRotation.Forward;
 
 				if ( Input.Pressed( InputButton.Attack1 ) )
 				{
@@ -74,7 +74,7 @@ namespace Sandbox.Tools
 					colorIndex = 0;
 				}
 
-				CreateHitEffects( tr.EndPos ); 
+				CreateHitEffects( tr.EndPosition ); 
 			}
 		}
 	}
