@@ -1,5 +1,13 @@
 {
-	"sharedassets": "*.*",
-	"type": "game",
-	"ident": "deltafive.deltabox"
+  "Title": "deltabox",
+  "Type": "game",
+  "Org": "deltafive",
+  "Ident": "deltabox",
+  "Schema": 1,
+  "HasAssets": false,
+  "AssetsPath": "",
+  "ResourcePaths": null,
+  "HasCode": true,
+  "CodePath": "/code/",
+  "RootNamespace": "Sandbox"
 }
