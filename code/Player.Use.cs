@@ -13,25 +13,39 @@ partial class SandboxPlayer
 			return null;
 
 		// First try a direct 0 width line
-		var tr = Trace.Ray( EyePos, EyePos + EyeRot.Forward * (85 * Scale) )
+		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * (85 * Scale) )
 			.HitLayer( CollisionLayer.Debris )
 			.Ignore( this )
 			.Run();
 
-		// Nothing found, try a wider search
-		if ( !IsValidUseEntity( tr.Entity ) )
+		// See if any of the parent entities are usable if we ain't.
+		var ent = tr.Entity;
+		while ( ent.IsValid() && !IsValidUseEntity( ent ) )
 		{
-			tr = Trace.Ray( EyePos, EyePos + EyeRot.Forward * (85 * Scale) )
+			ent = ent.Parent;
+		}
+
+		// Nothing found, try a wider search
+		if ( !IsValidUseEntity( ent ) )
+		{
+			tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * (85 * Scale) )
 			.Radius( 2 )
 			.HitLayer( CollisionLayer.Debris )
 			.Ignore( this )
 			.Run();
+
+			// See if any of the parent entities are usable if we ain't.
+			ent = tr.Entity;
+			while ( ent.IsValid() && !IsValidUseEntity( ent ) )
+			{
+				ent = ent.Parent;
+			}
 		}
 
 		// Still no good? Bail.
-		if ( !IsValidUseEntity( tr.Entity ) ) return null;
+		if ( !IsValidUseEntity( ent ) ) return null;
 
-		return tr.Entity;
+		return ent;
 	}
 
 	protected override void UseFail()
