@@ -44,8 +44,8 @@ namespace Sandbox.Tools
 
 			var ent = new ToolCameraEntity
 			{
-				Position = Owner.EyePos,
-				Rotation = Owner.EyeRot,
+				Position = Owner.EyePosition,
+				Rotation = Owner.EyeRotation,
 				Owner = this.Owner
 			};
 
@@ -63,13 +63,13 @@ namespace Sandbox.Tools
 
 			if ( Owner is SandboxPlayer player)
 			{
-				if ( player.MainCamera is ToolCamera )
+				if ( player.Components.Get<CameraMode>() is ToolCamera )
 				{
-					player.MainCamera = new FirstPersonCamera();
+					player.CameraMode = new FirstPersonCamera();
 				}
 				else
 				{
-					player.MainCamera = new ToolCamera();
+					player.CameraMode = new ToolCamera();
 				}
 			}
 		}

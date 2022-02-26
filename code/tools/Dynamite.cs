@@ -46,7 +46,7 @@
 			using ( Prediction.Off() )
 			{
 				//Putting this in Activate() does not work
-				tag = $"Delta_Dynamite_{Owner.GetClientOwner().Name}";
+				tag = $"Delta_Dynamite_{Owner.Client.Name}";
 
 				if ( Input.Pressed (InputButton.Reload) )
 				{
@@ -56,8 +56,8 @@
 				if ( !Input.Pressed( InputButton.Attack1 ) )
 					return;
 
-				var startPos = Owner.EyePos;
-				var dir = Owner.EyeRot.Forward;
+				var startPos = Owner.EyePosition;
+				var dir = Owner.EyeRotation.Forward;
 
 				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
 					.Ignore( Owner )
@@ -66,11 +66,11 @@
 				if ( !tr.Hit || !tr.Entity.IsValid() )
 					return;
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 
 				var ent = new DynamiteEntity
 				{
-					Position = tr.EndPos,
+					Position = tr.EndPosition,
 					Scale = 0.5f,
 					RenderColor = Color.Red,
 				};
